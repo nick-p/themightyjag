@@ -1,0 +1,72 @@
+<form id="register" method="post">
+    <header>
+        <h1>Sign me up!</h1>
+        <p>I would like to receive communications from themightyjag, even though I'm not sure what they entail.</p>
+    </header>
+
+    <ul>
+        <li>
+            <label for="register-name">My name is:</label>
+            <input type="text" id="register-name" name="name" required aria-required="true">
+        </li>
+        <li>
+            <label for="email">My email address is:</label>
+            <input type="email" id="email" name="email" required aria-required="true">
+        </li>
+        <li>
+            <label for="url">My website is located at:</label>
+            <input type="url" id="url" name="url" placeholder="e.g. http://example.com">
+        </li>
+        <li>
+            <label for="password">I would like my password to be:</label>
+            <p>(at least 6 characters, no spaces)</p>
+            <input type="password" id="password" name="password" required aria-required="true" title="(at least 6 characters, no spaces)" pattern="\S{6,}">
+        </li>
+        <li>
+            <label for="startdate">Please start my subscription on:</label>
+            <input type="date" min="2023-01-01" max="2026-01-01" id="startdate" name="startdate" required aria-required="true">
+        </li>
+        <li>
+            <label for="upsell">Also sign me up for <cite>Blockhaus News</cite></label>
+            <input type="checkbox" id="upsell" name="upsell" value="Blockhaus News">
+        </li>
+        <li>
+            <input type="submit" id="register-submit" value="Sign me up!">
+        </li>
+    </ul>
+</form>
+
+<script>
+    if (!Modernizr.input.placeholder) {
+        $("input[placeholder], textarea[placeholder]").each(function(){
+            if ($(this).val() == "") {
+                $(this).val($(this).attr("placeholder"));
+                $(this).focus(function(){
+                    if ($(this).val() == $(this).attr("placeholder")) {
+                        $(this).val("");
+                        $(this).removeClass('placeholder');
+                    }
+                });
+                $(this).blur(function(){
+                    if ($(this).val() == "") {
+                        $(this).val($(this).attr("placeholder"));
+                        $(this).addClass('placeholder');
+                    }
+                });
+            }
+        });
+
+        $('form').submit(function(){
+            // first do all the checking for required element and form validation.
+            // Only remove placeholders before final submission
+            var placeheld = $(this).find('[placeholder]');
+            for (var i = 0; i < placeheld.length; i++) {
+                if (($(placeheld[i]).val() == $(placeheld[i]).attr('placeholder'))) {
+                    // if not required, set value to empty before submitting
+                    $(placeheld[i]).attr('value', '');
+                }
+            }
+
+        });
+    }
+</script>
