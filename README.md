@@ -1,3 +1,3 @@
 # themightyjag
 
-repo for udemy examples
+repo for training
